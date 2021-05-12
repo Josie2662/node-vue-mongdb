@@ -38,6 +38,16 @@ module.exports = (app) => {
         res.send(model)
         
     })
+    // 删除分类接口
+    router.delete('/catergories/:id', async (req, res) => {
+        const model = await Category.findByIdAndDelete(req.params.id)
+        // 把model发送给客户端，让客户端知道传入数据库的是什么
+        res.send({
+            success: true
+        })
+        
+    })
+
 
     app.use('/admin/api',router)
 }

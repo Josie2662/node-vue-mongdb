@@ -10,7 +10,7 @@
             <template slot-scope="scope" width="100">
                 <!-- 点击编辑之后跳转页面，同时携带id参数 -->
                 <el-button @click="$router.push(`/categories/edit/${scope.row._id}`)" type="primary" size="small">编辑</el-button>
-                <el-button type="danger" size="small">删除</el-button>
+                <el-button type="danger" size="small" @click="deleteSub(scope.row)">删除</el-button>
             </template>
         </el-table-column>
         
@@ -31,6 +31,23 @@ export default {
          const res =  await this.$_http.get('catergories')
          this.tableData = res.data
          console.log(this.tableData);
+        },
+        // 点击删除按钮
+        deleteSub(row) {
+            this.$confirm(`此操作将删除分类${row.cateName}, 是否继续?`, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(async () => {
+                // 发送删除请求
+                const res =  await this.$_http.delete(`catergories/${row._id}`)
+                this.fecth()
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+                console.log(res);
+            })
         }
     },
     created() {
