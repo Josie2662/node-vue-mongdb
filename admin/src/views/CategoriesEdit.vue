@@ -38,10 +38,10 @@ export default {
             // 判断是新建分类还是编辑分类
             if (this.id) {
                 // 请求接口 提交数据
-                res = await this.$_http.put(`catergories/${this.id}`, this.form)
+                res = await this.$_http.put(`rest/categories/${this.id}`, this.form)
             } else {
                 // 请求接口 提交数据
-                res = await this.$_http.post('catergories', this.form)
+                res = await this.$_http.post('rest/categories', this.form)
                 
             }
             // 调转到分类列表页面
@@ -55,13 +55,13 @@ export default {
         },
         // 获取“编辑分类”时的该条数据信息
         async fetch() {
-            const res = await this.$_http.get(`catergories/${this.id}`)
+            const res = await this.$_http.get(`rest/categories/${this.id}`)
             this.form.cateName = res.data.cateName
             console.log(res.data);
         },
         // 获取父级分类选项
         async parentFetch() {
-            const res = await this.$_http.get('catergories')
+            const res = await this.$_http.get('rest/categories')
             this.form.parents = res.data
             console.log(res.data);
         }

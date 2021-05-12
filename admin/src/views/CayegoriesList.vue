@@ -30,7 +30,7 @@ export default {
     methods: {
         async fecth() {
             // 从服务端接口获取数据
-         const res =  await this.$_http.get('catergories')
+         const res =  await this.$_http.get('rest/categories')
          this.tableData = res.data
          console.log(this.tableData);
         },
@@ -46,7 +46,7 @@ export default {
                 type: 'warning'
             }).then(async () => {
                 // 发送删除请求
-                const res =  await this.$_http.delete(`catergories/${row._id}`)
+                const res =  await this.$_http.delete(`rest/categories/${row._id}`)
                 this.fecth()
                 this.$message({
                     type: 'success',
