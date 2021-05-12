@@ -26,7 +26,8 @@
     </el-header>
     
     <el-main>
-      <router-view></router-view>
+      <!-- ":key="$route.fullPath" "解决组件复用不刷新问题 -->
+      <router-view :key="$route.fullPath"></router-view>
       <!-- <el-table :data="tableData">
         <el-table-column prop="date" label="日期" width="140">
         </el-table-column>
