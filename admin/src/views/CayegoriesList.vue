@@ -4,6 +4,8 @@
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="_id" label="ID" width="220">
         </el-table-column>
+        <el-table-column prop="parent.cateName" label="父级分类" >
+        </el-table-column>
         <el-table-column prop="cateName" label="分类名称" >
         </el-table-column>
         <el-table-column label="操作">
@@ -32,6 +34,10 @@ export default {
          this.tableData = res.data
          console.log(this.tableData);
         },
+        // 根据父级分类ID获取父级分类名称
+        // async parentFech(id) {
+        //     const res = await this.$_http.get(`catergories/${}`,)
+        // },
         // 点击删除按钮
         deleteSub(row) {
             this.$confirm(`此操作将删除分类${row.cateName}, 是否继续?`, '提示', {

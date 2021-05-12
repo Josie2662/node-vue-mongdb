@@ -16,7 +16,8 @@ module.exports = (app) => {
     })
     router.get('/catergories', async (req, res) => {
         // 查询数据Category.find(),limit(20)限制20条
-        const items = await Category.find().limit(20)
+        // populate('parent') 表示关联查询，把这个关联的id的所有数据都查出来
+        const items = await Category.find().populate('parent').limit(20)
 
         // 把数据发送给客户端
         res.send(items)

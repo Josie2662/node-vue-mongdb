@@ -3,6 +3,17 @@
         <!-- 通过是否带有id判断是编辑还是新增 -->
         <h1>{{id ? '编辑' : '新建'}}分类</h1>
         <el-form :model="form"  label-width="120px">
+          <el-form-item label="上级分类">
+              <!-- 添加一个上级分类选择框 -->
+                <el-select v-model="form.parent" placeholder="请选择">
+                    <el-option
+                        v-for="item in form.parents"
+                        :key="item._id"
+                        :label="item.cateName"
+                        :value="item._id">
+                    </el-option>
+                </el-select>
+          </el-form-item>
           <el-form-item label="分类名称">
               <el-input v-model="form.cateName"></el-input>
               <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -10,13 +21,13 @@
         </el-form>
     </div>
 </template>
-
 <script>
 export default {
     data(){
         return {
             form: {
-                cateName:''
+                cateName:'',
+                parents: []
             },
             id: this.$route.params.id
         }
@@ -47,9 +58,16 @@ export default {
             const res = await this.$_http.get(`catergories/${this.id}`)
             this.form.cateName = res.data.cateName
             console.log(res.data);
+        },
+        // 获取父级分类选项
+        async parentFetch() {
+            const res = await this.$_http.get('catergories')
+            this.form.parents = res.data
+            console.log(res.data);
         }
     },
     created() {
+        this.parentFetch()
         // 当有this.id时才执行this.fetch()
         this.id && this.fetch()
     }
