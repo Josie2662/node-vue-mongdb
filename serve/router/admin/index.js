@@ -52,7 +52,7 @@ module.exports = (app) => {
     })
     // 删除分类接口
     router.delete('/:id', async (req, res) => {
-        const model = await Category.findByIdAndDelete(req.params.id)
+        const model = await req.Model.findByIdAndDelete(req.params.id)
         // 把model发送给客户端，让客户端知道传入数据库的是什么
         res.send({
             success: true
@@ -66,7 +66,7 @@ module.exports = (app) => {
          const modelName = require('inflection').classify(req.params.resource)
          // 引用模型
          // req.Model表示给请求对象上挂载一个Model 属性，这样每个接口就可以通过req.Model访问到Model了
-        req.Model = require(`../../models/Category`)
+        req.Model = require(`../../models/${modelName}`)
         next()
     } , router)
 }

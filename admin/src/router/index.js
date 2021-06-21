@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import CategoriesEdit from '../views/CategoriesEdit.vue'
 import CategoriesList from '../views/CayegoriesList.vue'
+import ItemEdit from '../views/ItemEdit.vue'
+import ItemList from '../views/ItemList.vue'
 
 Vue.use(VueRouter)
 
@@ -29,7 +31,29 @@ const routes = [
         path: '/categories/edit/:id',
         name: 'CategoriesEdit',
         component: CategoriesEdit
-      }
+      },
+      {
+        path: '/items/create',
+        name: 'ItemEdit',
+        component: ItemEdit
+      },
+      {
+        path: '/items/list',
+        name: 'ItemList',
+        component: ItemList
+      },
+      {
+        // 使用/:id,会自动将id放入this.$route.param当中（route而不是router）
+        // 与新建分类公用一个页面组件
+        path: '/items/edit/:id',
+        name: 'ItemEdit',
+        component: ItemEdit
+      },
+      {
+        path: '/mec/outline/index',
+        name: 'Outline',
+        component: () => import('../views/Outline.vue')
+      },
     ]
   },
   {
